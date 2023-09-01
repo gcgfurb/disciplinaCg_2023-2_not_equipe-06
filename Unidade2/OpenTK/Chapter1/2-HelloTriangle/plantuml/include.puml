@@ -1,0 +1,6 @@
+@startuml
+!include ./Window.puml
+!include ./Program.puml
+!include ./obj/Debug/net7.0/.NETCoreApp,Version=v7.0.AssemblyAttributes.puml
+!include ./obj/Debug/net7.0/2-HelloTriangle.AssemblyInfo.puml
+@enduml
