@@ -94,6 +94,21 @@ namespace gcgcg
       objetoSelecionado.shaderCor = new Shader("Shaders/shader.vert", "Shaders/shaderAmarela.frag");
 
       #endregion
+      
+#if CG_Privado
+      #region Objeto: circulo  
+      objetoSelecionado = new Circulo(mundo, ref rotuloAtual, 0.2, new Ponto4D());
+      objetoSelecionado.shaderCor = new Shader("Shaders/shader.vert", "Shaders/shaderAmarela.frag");
+      #endregion
+
+      #region Objeto: SrPalito  
+      objetoSelecionado = new SrPalito(mundo, ref rotuloAtual);
+      #endregion
+
+      #region Objeto: Spline
+      objetoSelecionado = new Spline(mundo, ref rotuloAtual);
+      #endregion
+#endif
     }
 
     protected override void OnRenderFrame(FrameEventArgs e)
