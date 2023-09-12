@@ -9,7 +9,6 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Windowing.Desktop;
 using System;
-using System.Collections.Generic;
 using OpenTK.Mathematics;
 
 //FIXME: padrão Singleton
@@ -35,6 +34,7 @@ namespace gcgcg
         private Shader _shaderVermelha;
         private Shader _shaderVerde;
         private Shader _shaderAzul;
+        private Shader _shaderAmarela;
 
         private bool _firstMove = true;
         private Vector2 _lastPos;
@@ -89,35 +89,12 @@ namespace gcgcg
             _shaderVermelha = new Shader("Shaders/shader.vert", "Shaders/shaderVermelha.frag");
             _shaderVerde = new Shader("Shaders/shader.vert", "Shaders/shaderVerde.frag");
             _shaderAzul = new Shader("Shaders/shader.vert", "Shaders/shaderAzul.frag");
+            _shaderAmarela = new Shader("Shaders/shader.vert", "Shaders/shaderAmarela.frag");
 
             #endregion
 
-            #region Objeto: polígono qualquer
-
-            List<Ponto4D> pontosPoligono = new List<Ponto4D>();
-            pontosPoligono.Add(new Ponto4D(0.25, 0.25));
-            pontosPoligono.Add(new Ponto4D(0.75, 0.25));
-            pontosPoligono.Add(new Ponto4D(0.75, 0.75));
-            pontosPoligono.Add(new Ponto4D(0.50, 0.50));
-            pontosPoligono.Add(new Ponto4D(0.25, 0.75));
-            objetoSelecionado = new Poligono(mundo, ref rotuloAtual, pontosPoligono);
-
-            #endregion
-
-#if CG_Privado
-      #region Objeto: circulo  
-      objetoSelecionado = new Circulo(mundo, ref rotuloAtual, 0.2, new Ponto4D());
-      objetoSelecionado.shaderCor = new Shader("Shaders/shader.vert", "Shaders/shaderAmarela.frag");
-      #endregion
-
-      #region Objeto: SrPalito  
-      objetoSelecionado = new SrPalito(mundo, ref rotuloAtual);
-      #endregion
-
-      #region Objeto: Spline
-      objetoSelecionado = new Spline(mundo, ref rotuloAtual);
-      #endregion
-#endif
+            objetoSelecionado = new Spline(mundo, ref rotuloAtual);
+            objetoSelecionado.shaderCor = _shaderAmarela;
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -143,25 +120,40 @@ namespace gcgcg
             {
                 Close();
             }
-            else if (KeyboardState.IsKeyDown(Keys.Space))
+            else if (objetoSelecionado is Spline spline)
             {
-                //Trocar ponto selecionado
-            }
-            else if (KeyboardState.IsKeyPressed(Keys.E))
-            {
-                //Mover ponto selecionado p/ esquerda
-            }
-            else if (KeyboardState.IsKeyPressed(Keys.D))
-            {
-                //Mover ponto selecionado p/ direita
-            }
-            else if (KeyboardState.IsKeyPressed(Keys.C))
-            {
-                //Mover ponto selecionado p/ cima
-            }
-            else if (KeyboardState.IsKeyPressed(Keys.B))
-            {
-                //Mover ponto selecionado p/ baixo
+                if (KeyboardState.IsKeyPressed(Keys.D))
+                {
+                    spline.AtualizarSpline(new Ponto4D(0.05));
+                }
+                else if (KeyboardState.IsKeyPressed(Keys.E))
+                {
+                    spline.AtualizarSpline(new Ponto4D(-0.05));
+                }
+                else if (KeyboardState.IsKeyPressed(Keys.C))
+                {
+                    spline.AtualizarSpline(new Ponto4D(y: 0.05));
+                }
+                else if (KeyboardState.IsKeyDown(Keys.R))
+                {
+                    spline.Reset();
+                }
+                else if (KeyboardState.IsKeyPressed(Keys.B))
+                {
+                    spline.AtualizarSpline(new Ponto4D(y: -0.05));
+                }
+                else if (KeyboardState.IsKeyPressed(Keys.Equal))
+                {
+                    spline.SplineQtdPto(1);
+                }
+                else if (KeyboardState.IsKeyPressed(Keys.Minus))
+                {
+                    spline.SplineQtdPto(-1);
+                }
+                else if (KeyboardState.IsKeyPressed(Keys.Space))
+                {
+                    spline.AtualizarSpline(new Ponto4D(), true);
+                }
             }
 
             #endregion
