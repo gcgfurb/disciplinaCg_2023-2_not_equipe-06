@@ -16,6 +16,7 @@ namespace gcgcg
 
         //TODO isso aqui parece meio gambiarra, queria tirar esse número fixo e
         //alterar dinamicamente com apenas o ptsCount. Talvez isso tbm causa o problema da linha a mais
+        //Os valores são = 10 pois é a quantidade que está no exemplo dessa atividade
         private const int MaxPts = 10;
         private int ptsCount = 10;
 

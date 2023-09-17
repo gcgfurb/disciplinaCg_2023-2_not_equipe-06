@@ -8,15 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="050647c3-bcc9-4b6a-a4dc-49977496d9c6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CG_N2_Exemplo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CG_N2_Exemplo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net7.0/CG_N2_Exemplo.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net7.0/CG_N2_Exemplo.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net7.0/CG_N2_Exemplo.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net7.0/CG_N2_Exemplo.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/CG_N2_Exemplo.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/CG_N2_Exemplo.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/CG_N2_Exemplo.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/CG_N2_Exemplo.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/CG_N2_Exemplo.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/CG_N2_Exemplo.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/CG_N2_Exemplo.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/CG_N2_Exemplo.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Circulo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Circulo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mundo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Mundo.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +87,7 @@
       <workItem from="1693671119597" duration="2122000" />
       <workItem from="1693683149011" duration="1395000" />
       <workItem from="1693684900408" duration="15000" />
+      <workItem from="1694981760805" duration="468000" />
     </task>
     <servers />
   </component>

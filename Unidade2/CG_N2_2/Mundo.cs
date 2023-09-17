@@ -117,7 +117,6 @@ namespace gcgcg
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
-
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
 #if CG_Gizmo
@@ -133,12 +132,11 @@ namespace gcgcg
 
             #region Teclado
 
-            var input = KeyboardState;
-            if (input.IsKeyDown(Keys.Escape))
+            if (KeyboardState.IsKeyDown(Keys.Escape))
             {
                 Close();
             }
-            else if (input.IsKeyPressed(Keys.Space))
+            else if (KeyboardState.IsKeyPressed(Keys.Space))
             {
                 if (objetoSelecionado.PrimitivaTipo >= PrimitiveType.TriangleFan)
                 {
@@ -148,8 +146,6 @@ namespace gcgcg
                 {
                     objetoSelecionado.PrimitivaTipo++;
                 }
-
-                Console.WriteLine(objetoSelecionado.ToString());
             }
 
             #endregion

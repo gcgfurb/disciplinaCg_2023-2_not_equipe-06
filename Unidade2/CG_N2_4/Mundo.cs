@@ -100,7 +100,6 @@ namespace gcgcg
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
-
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
 #if CG_Gizmo
@@ -122,36 +121,45 @@ namespace gcgcg
             }
             else if (objetoSelecionado is Spline spline)
             {
-                if (KeyboardState.IsKeyPressed(Keys.D))
+                if (KeyboardState.IsKeyPressed(Keys.C))
                 {
-                    spline.AtualizarSpline(new Ponto4D(0.05));
-                }
-                else if (KeyboardState.IsKeyPressed(Keys.E))
-                {
-                    spline.AtualizarSpline(new Ponto4D(-0.05));
-                }
-                else if (KeyboardState.IsKeyPressed(Keys.C))
-                {
+                    //Cima
                     spline.AtualizarSpline(new Ponto4D(y: 0.05));
-                }
-                else if (KeyboardState.IsKeyDown(Keys.R))
-                {
-                    spline.Reset();
                 }
                 else if (KeyboardState.IsKeyPressed(Keys.B))
                 {
+                    //Baixo
                     spline.AtualizarSpline(new Ponto4D(y: -0.05));
                 }
+                else if (KeyboardState.IsKeyPressed(Keys.E))
+                {
+                    //Esquerda
+                    spline.AtualizarSpline(new Ponto4D(-0.05));
+                }
+                else if (KeyboardState.IsKeyPressed(Keys.D))
+                {
+                    //Direita
+                    spline.AtualizarSpline(new Ponto4D(0.05));
+                }
+                //Tecla = (não precisa de shift)
                 else if (KeyboardState.IsKeyPressed(Keys.Equal))
                 {
+                    //Aumentar pontos
                     spline.SplineQtdPto(1);
                 }
                 else if (KeyboardState.IsKeyPressed(Keys.Minus))
                 {
+                    //Diminuir pontos
                     spline.SplineQtdPto(-1);
+                }
+                else if (KeyboardState.IsKeyDown(Keys.R))
+                {
+                    //Reset
+                    spline.Reset();
                 }
                 else if (KeyboardState.IsKeyPressed(Keys.Space))
                 {
+                    //Trocar seleção
                     spline.AtualizarSpline(new Ponto4D(), true);
                 }
             }

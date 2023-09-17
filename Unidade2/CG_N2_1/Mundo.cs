@@ -113,28 +113,29 @@ namespace gcgcg
 
     protected override void OnRenderFrame(FrameEventArgs e)
     {
-      base.OnRenderFrame(e);
+        base.OnRenderFrame(e);
+        GL.Clear(ClearBufferMask.ColorBufferBit);
 
-      GL.Clear(ClearBufferMask.ColorBufferBit);
-
-#if CG_Gizmo      
-      Sru3D();
+#if CG_Gizmo
+        Sru3D();
 #endif
-      mundo.Desenhar();
-      SwapBuffers();
+        mundo.Desenhar();
+        SwapBuffers();
     }
 
     protected override void OnUpdateFrame(FrameEventArgs e)
     {
-      base.OnUpdateFrame(e);
+        base.OnUpdateFrame(e);
 
-      #region Teclado
-      var input = KeyboardState;
-      if (input.IsKeyDown(Keys.Escape))
-      {
-        Close();
-      }
-      #endregion
+        #region Teclado
+
+        var input = KeyboardState;
+        if (input.IsKeyDown(Keys.Escape))
+        {
+            Close();
+        }
+
+        #endregion
     }
 
     protected override void OnResize(ResizeEventArgs e)

@@ -12,9 +12,9 @@ namespace gcgcg
         public Circulo(Objeto paiRef, ref char _rotulo, double _raio, Ponto4D ptoDeslocamento) : base(paiRef,
             ref _rotulo)
         {
+            raio = _raio;
             PrimitivaTipo = PrimitiveType.Points;
             PrimitivaTamanho = 5;
-            raio = _raio;
 
             for (var i = 0; i < 360; i += 5)
             {
@@ -43,8 +43,8 @@ namespace gcgcg
         {
             string retorno;
             retorno = "__ Objeto Circulo _ Tipo: " + PrimitivaTipo + " _ Tamanho: " + PrimitivaTamanho + "\n";
-            retorno += base.ImprimeToString();
-            return (retorno);
+            retorno += ImprimeToString();
+            return retorno;
         }
 #endif
     }
