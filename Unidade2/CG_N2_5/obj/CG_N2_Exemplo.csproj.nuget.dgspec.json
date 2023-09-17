@@ -1,0 +1,138 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/Unidade2/CG_N2_5/CG_N2_Exemplo.csproj": {}
+  },
+  "projects": {
+    "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/CG_Biblioteca/CG_Biblioteca.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/CG_Biblioteca/CG_Biblioteca.csproj",
+        "projectName": "CG_Biblioteca",
+        "projectPath": "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/CG_Biblioteca/CG_Biblioteca.csproj",
+        "packagesPath": "/Users/leeonardoo/.nuget/packages/",
+        "outputPath": "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/CG_Biblioteca/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/leeonardoo/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "OpenTK": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
+            "StbImageSharp": {
+              "target": "Package",
+              "version": "[2.27.13, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/Unidade2/CG_N2_5/CG_N2_Exemplo.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/Unidade2/CG_N2_5/CG_N2_Exemplo.csproj",
+        "projectName": "CG_N2_Exemplo",
+        "projectPath": "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/Unidade2/CG_N2_5/CG_N2_Exemplo.csproj",
+        "packagesPath": "/Users/leeonardoo/.nuget/packages/",
+        "outputPath": "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/Unidade2/CG_N2_5/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/leeonardoo/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/CG_Biblioteca/CG_Biblioteca.csproj": {
+                "projectPath": "/Users/leeonardoo/disciplinaCg_2023-2_not_equipe-06/CG_Biblioteca/CG_Biblioteca.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "OpenTK": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
+            "StbImageSharp": {
+              "target": "Package",
+              "version": "[2.27.13, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
