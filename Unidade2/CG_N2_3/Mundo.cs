@@ -40,7 +40,7 @@ namespace gcgcg
         private Vector2 _lastPos;
 
         public Mundo(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
-               : base(gameWindowSettings, nativeWindowSettings)
+            : base(gameWindowSettings, nativeWindowSettings)
         {
             mundo = new Objeto(null, ref rotuloAtual);
         }
@@ -76,10 +76,12 @@ namespace gcgcg
 
             GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-            #region Eixos: SRU  
+            #region Eixos: SRU
+
             _vertexBufferObject_sruEixos = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject_sruEixos);
-            GL.BufferData(BufferTarget.ArrayBuffer, _sruEixos.Length * sizeof(float), _sruEixos, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, _sruEixos.Length * sizeof(float), _sruEixos,
+                BufferUsageHint.StaticDraw);
             _vertexArrayObject_sruEixos = GL.GenVertexArray();
             GL.BindVertexArray(_vertexArrayObject_sruEixos);
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
@@ -87,39 +89,13 @@ namespace gcgcg
             _shaderVermelha = new Shader("Shaders/shader.vert", "Shaders/shaderVermelha.frag");
             _shaderVerde = new Shader("Shaders/shader.vert", "Shaders/shaderVerde.frag");
             _shaderAzul = new Shader("Shaders/shader.vert", "Shaders/shaderAzul.frag");
-            #endregion
 
-            #region Objeto: polígono qualquer  
-            List<Ponto4D> pontosPoligono = new List<Ponto4D>();
-            pontosPoligono.Add(new Ponto4D(0.25, 0.25));
-            pontosPoligono.Add(new Ponto4D(0.75, 0.25));
-            pontosPoligono.Add(new Ponto4D(0.75, 0.75));
-            pontosPoligono.Add(new Ponto4D(0.50, 0.50));
-            pontosPoligono.Add(new Ponto4D(0.25, 0.75));
-            objetoSelecionado = new Poligono(mundo, ref rotuloAtual, pontosPoligono);
-            #endregion
-            #region NÃO USAR: declara um objeto filho ao polígono
-            objetoSelecionado = new Ponto(objetoSelecionado, ref rotuloAtual, new Ponto4D(0.50, 0.75));
-            objetoSelecionado.ToString();
-            #endregion
-
-            #region Objeto: retângulo  
-            objetoSelecionado = new Retangulo(mundo, ref rotuloAtual, new Ponto4D(-0.25, 0.25), new Ponto4D(-0.75, 0.75));
-            objetoSelecionado.PrimitivaTipo = PrimitiveType.LineLoop;
-            #endregion
-
-            #region Objeto: segmento de reta  
-            objetoSelecionado = new SegReta(mundo, ref rotuloAtual, new Ponto4D(-0.25, -0.25), new Ponto4D(-0.75, -0.75));
-            #endregion
-
-            #region Objeto: ponto  
-            objetoSelecionado = new Ponto(mundo, ref rotuloAtual, new Ponto4D(0.25, -0.25));
-            objetoSelecionado.PrimitivaTipo = PrimitiveType.Points;
-            objetoSelecionado.PrimitivaTamanho = 10;
             #endregion
 
             #region Objeto: SrPalito
+
             objetoSelecionado = new SrPalito(mundo, ref rotuloAtual);
+
             #endregion
 
 #if CG_Privado
@@ -136,13 +112,11 @@ namespace gcgcg
       objetoSelecionado = new Spline(mundo, ref rotuloAtual);
             #endregion
 #endif
-
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
-
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
 #if CG_Gizmo
@@ -157,72 +131,48 @@ namespace gcgcg
             base.OnUpdateFrame(e);
 
             #region Teclado
+
             var input = KeyboardState;
             if (input.IsKeyDown(Keys.Escape))
             {
                 Close();
             }
-            else
+            else if (objetoSelecionado is SrPalito srPalito)
             {
-                if (input.IsKeyDown(Keys.Right))
+                //IsKeyPressed ao invés de IsKeyDown para só ativar uma vez ao invés de a cada frame
+                if (input.IsKeyPressed(Keys.Q))
                 {
-                    objetoSelecionado.PontosAlterar(new Ponto4D(objetoSelecionado.PontosId(0).X + 0.005, objetoSelecionado.PontosId(0).Y, 0), 0);
-                    objetoSelecionado.ObjetoAtualizar();
+                    //Esquerda
+                    srPalito.AtualizarPe(-0.03);
                 }
-                else
+                else if (input.IsKeyPressed(Keys.W))
                 {
-                    if (input.IsKeyPressed(Keys.P))
-                    {
-                        Console.WriteLine(objetoSelecionado);
-                    }
-                    else
-                    {
-                        if (input.IsKeyPressed(Keys.Space))
-                        {
-                            objetoSelecionado = objetoSelecionado.GrafocenaBusca('B');
-                            objetoSelecionado.ToString();
-                        }
-                        else
-                        {
-                            if (input.IsKeyPressed(Keys.C))
-                            {
-                                objetoSelecionado.shaderCor = new Shader("Shaders/shader.vert", "Shaders/shaderCiano.frag");
-                            }
-                        }
-                    }
+                    //Direita
+                    srPalito.AtualizarPe(0.03);
+                }
+                else if (input.IsKeyPressed(Keys.A))
+                {
+                    //Diminuir tamanho
+                    srPalito.AtualizarRaio(-0.03);
+                }
+                else if (input.IsKeyPressed(Keys.S))
+                {
+                    //Aumentar tamanho
+                    srPalito.AtualizarRaio(0.03);
+                }
+                else if (input.IsKeyPressed(Keys.Z))
+                {
+                    //Diminuir angulo
+                    srPalito.AtualizarAngulo(-5);
+                }
+                else if (input.IsKeyPressed(Keys.X))
+                {
+                    //Aumentar angulo
+                    srPalito.AtualizarAngulo(5);
                 }
             }
+
             #endregion
-
-            #region  Mouse
-            var mouse = MouseState;
-            // Mouse FIXME: inverte eixo Y, fazer NDC para proporção em tela
-            Vector2i janela = this.ClientRectangle.Size;
-
-            if (input.IsKeyDown(Keys.LeftShift))
-            {
-                if (_firstMove)
-                {
-                    _lastPos = new Vector2(mouse.X, mouse.Y);
-                    _firstMove = false;
-                }
-                else
-                {
-                    var deltaX = (mouse.X - _lastPos.X) / janela.X;
-                    var deltaY = (mouse.Y - _lastPos.Y) / janela.Y;
-                    _lastPos = new Vector2(mouse.X, mouse.Y);
-
-                    objetoSelecionado.PontosAlterar(new Ponto4D(objetoSelecionado.PontosId(0).X + deltaX, objetoSelecionado.PontosId(0).Y + deltaY, 0), 0);
-                    objetoSelecionado.ObjetoAtualizar();
-                }
-            }
-            if (input.IsKeyDown(Keys.RightShift))
-            {
-                objetoSelecionado.PontosAlterar(new Ponto4D(mouse.X / janela.X, mouse.Y / janela.Y, 0), 0);
-                objetoSelecionado.ObjetoAtualizar();
-            }
-            #endregion
-
         }
 
         protected override void OnResize(ResizeEventArgs e)

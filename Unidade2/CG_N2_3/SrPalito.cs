@@ -1,82 +1,74 @@
 ﻿#define cg_debug
 using CG_Biblioteca;
 using System;
+using OpenTK.Graphics.OpenGL4;
 
 namespace gcgcg
 {
     internal class SrPalito : Objeto
     {
-        private SegReta corpo;
-        private Circulo cabeca;
-        private double angulo;
-        private double raio;
-        private double pe;
+        private double angulo = 45;
+        private double raio = 0.5;
+        
+        //Pontos do corpo
+        private Ponto4D ptoIni = new(); //Pé (base)
+        private Ponto4D ptoFim = new(); //Cabeça (topo)
 
         public SrPalito(Objeto paiRef, ref char _rotulo) : base(paiRef, ref _rotulo)
         {
-            Ponto4D ptoDes = new Ponto4D();
-            angulo = 45;
-            raio = 0.5;
-            var ptoIni = new Ponto4D(pe, 0, 0, 1);
-            var ptoFim = Matematica.GerarPtosCirculo(angulo, raio) + ptoIni;
-            corpo = new SegReta(paiRef, ref _rotulo, ptoIni, ptoFim);
-            cabeca = new Circulo(paiRef, ref _rotulo, raio, ptoDes);
+            PrimitivaTipo = PrimitiveType.Lines;
+            PrimitivaTamanho = 1f;
+
+            PontosAdicionar(ptoIni);
+            PontosAdicionar(ptoFim);
+            
+            //Antes de base.ObjetoAtualizar() precisa do Atualizar para definir a posição do ponto final
             Atualizar();
         }
+
         public void Atualizar()
         {
-            ConsoleKeyInfo KeyInfo;
-            do
-            {
-                KeyInfo = Console.ReadKey(true);
+            //Substituir o ponto inicial pelo atual
+            PontosAlterar(ptoIni, 0);
 
-                switch (KeyInfo.Key)
-                {
-                    case ConsoleKey.Q:
-                        AtualizarPe(-0.1);
-                        break;
-                    case ConsoleKey.W:
-                        AtualizarPe(0.1);
-                        break;
-                    case ConsoleKey.A:
-                        AtualizarRaio(-0.1);
-                        break;
-                    case ConsoleKey.S:
-                        AtualizarRaio(0.1);
-                        break;
-                    case ConsoleKey.Z:
-                        AtualizarAngulo(-5.0);
-                        break;
-                    case ConsoleKey.X:
-                        AtualizarAngulo(5.0);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            while (KeyInfo.Key != ConsoleKey.Escape);
-            //base.ObjetoAtualizar();
+            //Gerar o ponto da cabeça com o ângulo e raio atual
+            ptoFim = Matematica.GerarPtosCirculo(angulo, raio);
+
+            //Atualizar para a coordenada X correta (de acordo com o ponto inicial)
+            ptoFim.X += ptoIni.X;
+            
+            //Substituir o ponto final pelo novo gerado
+            PontosAlterar(ptoFim, 1);
+            ObjetoAtualizar();
         }
+
         public void AtualizarPe(double peInc)
         {
-            pe += peInc;
+            //Criar um novo ponto com offset no X
+            ptoIni = new Ponto4D(ptoIni.X + peInc, ptoIni.Y);
+            
+            Atualizar();
         }
+
         public void AtualizarRaio(double raioInc)
         {
             raio += raioInc;
+            Atualizar();
         }
+
         public void AtualizarAngulo(double anguloInc)
         {
             angulo += anguloInc;
+            Atualizar();
         }
 
 #if cg_debug
         public override string ToString()
         {
             string retorno;
-            retorno = "__ objeto circulo _ tipo: " + PrimitivaTipo + " _ tamanho: " + PrimitivaTamanho + "\n";
-            retorno += base.ImprimeToString();
-            return (retorno);
+            retorno = "__ Objeto SrPalito _ tipo: " + PrimitivaTipo + " _ tamanho: " + PrimitivaTamanho + "\n";
+            retorno += ImprimeToString();
+            return retorno;
         }
 #endif
     }
