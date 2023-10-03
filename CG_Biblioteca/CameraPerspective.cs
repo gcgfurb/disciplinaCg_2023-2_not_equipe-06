@@ -5,6 +5,7 @@ namespace CG_Biblioteca
 {
     public class Camera
     {
+        //FIXME: usar Ponto4D no lugar de Vector3
         private Vector3 _front = -Vector3.UnitZ;
         private Vector3 _up = Vector3.UnitY;
         private Vector3 _right = Vector3.UnitX;
