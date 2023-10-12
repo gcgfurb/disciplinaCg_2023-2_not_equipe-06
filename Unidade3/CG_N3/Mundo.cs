@@ -129,51 +129,56 @@ namespace gcgcg
             #region Teclado
 
             var input = KeyboardState;
+
             if (input.IsKeyDown(Keys.Escape))
                 Close();
-            if (input.IsKeyPressed(Keys.Space))
+            else if (input.IsKeyPressed(Keys.Space))
             {
-                if (objetoSelecionado == null)
-                    objetoSelecionado = mundo;
+                objetoSelecionado ??= mundo;
                 // objetoSelecionado.shaderObjeto = _shaderBranca;
                 objetoSelecionado = mundo.GrafocenaBuscaProximo(objetoSelecionado);
                 // objetoSelecionado.shaderObjeto = _shaderAmarela;
             }
-
-            if (input.IsKeyPressed(Keys.G))
+            else if (input.IsKeyPressed(Keys.G))
                 mundo.GrafocenaImprimir("");
-            if (input.IsKeyPressed(Keys.P) && objetoSelecionado != null)
-                System.Console.WriteLine(objetoSelecionado.ToString());
-            if (input.IsKeyPressed(Keys.M) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.P) && objetoSelecionado != null)
+                Console.WriteLine(objetoSelecionado.ToString());
+            else if (input.IsKeyPressed(Keys.M) && objetoSelecionado != null)
                 objetoSelecionado.MatrizImprimir();
             //TODO: não está atualizando a BBox com as transformações geométricas
-            if (input.IsKeyPressed(Keys.I) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.I) && objetoSelecionado != null)
                 objetoSelecionado.MatrizAtribuirIdentidade();
-            if (input.IsKeyPressed(Keys.Left) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.D) && objetoSelecionado != null)
+            {
+                objetoSelecionado.ObjetoRemover();
+                // Remover a seleção do objeto (para não ter uma bbox fantasma)
+                objetoSelecionado = mundo.GrafocenaBuscaProximo(mundo);
+            }
+            else if (input.IsKeyPressed(Keys.Left) && objetoSelecionado != null)
                 objetoSelecionado.MatrizTranslacaoXYZ(-0.05, 0, 0);
-            if (input.IsKeyPressed(Keys.Right) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.Right) && objetoSelecionado != null)
                 objetoSelecionado.MatrizTranslacaoXYZ(0.05, 0, 0);
-            if (input.IsKeyPressed(Keys.Up) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.Up) && objetoSelecionado != null)
                 objetoSelecionado.MatrizTranslacaoXYZ(0, 0.05, 0);
-            if (input.IsKeyPressed(Keys.Down) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.Down) && objetoSelecionado != null)
                 objetoSelecionado.MatrizTranslacaoXYZ(0, -0.05, 0);
-            if (input.IsKeyPressed(Keys.PageUp) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.PageUp) && objetoSelecionado != null)
                 objetoSelecionado.MatrizEscalaXYZ(2, 2, 2);
-            if (input.IsKeyPressed(Keys.PageDown) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.PageDown) && objetoSelecionado != null)
                 objetoSelecionado.MatrizEscalaXYZ(0.5, 0.5, 0.5);
-            if (input.IsKeyPressed(Keys.Home) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.Home) && objetoSelecionado != null)
                 objetoSelecionado.MatrizEscalaXYZBBox(0.5, 0.5, 0.5);
-            if (input.IsKeyPressed(Keys.End) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.End) && objetoSelecionado != null)
                 objetoSelecionado.MatrizEscalaXYZBBox(2, 2, 2);
-            if (input.IsKeyPressed(Keys.D1) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.D1) && objetoSelecionado != null)
                 objetoSelecionado.MatrizRotacao(10);
-            if (input.IsKeyPressed(Keys.D2) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.D2) && objetoSelecionado != null)
                 objetoSelecionado.MatrizRotacao(-10);
-            if (input.IsKeyPressed(Keys.D3) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.D3) && objetoSelecionado != null)
                 objetoSelecionado.MatrizRotacaoZBBox(10);
-            if (input.IsKeyPressed(Keys.D4) && objetoSelecionado != null)
+            else if (input.IsKeyPressed(Keys.D4) && objetoSelecionado != null)
                 objetoSelecionado.MatrizRotacaoZBBox(-10);
-            if (input.IsKeyPressed(Keys.Enter)) // Finalizar objeto
+            else if (input.IsKeyPressed(Keys.Enter)) // Finalizar objeto
             {
                 objetoSelecionado = objetoEmProgresso;
                 objetoEmProgresso = null;
@@ -185,13 +190,13 @@ namespace gcgcg
 
             if (MouseState.IsButtonPressed(MouseButton.Left))
             {
-                System.Console.WriteLine("MouseState.IsButtonPressed(MouseButton.Left)");
-                System.Console.WriteLine("__ Valores do Espaço de Tela");
-                System.Console.WriteLine("Vector2 mousePosition: " + MousePosition);
-                System.Console.WriteLine("Vector2i windowSize: " + Size);
+                Console.WriteLine("MouseState.IsButtonPressed(MouseButton.Left)");
+                Console.WriteLine("__ Valores do Espaço de Tela");
+                Console.WriteLine("Vector2 mousePosition: " + MousePosition);
+                Console.WriteLine("Vector2i windowSize: " + Size);
             }
 
-            if (MouseState.IsButtonPressed(MouseButton.Right)) // Dispara apenas uma vez
+            else if (MouseState.IsButtonPressed(MouseButton.Right)) // Dispara apenas uma vez
             {
                 // Posição do mouse
                 Ponto4D mousePto = new Ponto4D(MousePosition.X, MousePosition.Y);

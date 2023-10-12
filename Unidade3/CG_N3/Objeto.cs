@@ -94,6 +94,25 @@ namespace gcgcg
       GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
       GL.EnableVertexAttribArray(0);
     }
+    
+    public void ObjetoRemover()
+    {
+      // Em cada filho remover todos os objetos
+      foreach (var obj in objetosLista)
+      {
+        obj.ObjetoRemover();
+      }
+      
+      // Remover do pai
+      paiRef.objetosLista.Remove(this);
+      
+      // Limpar os objetos filhos que agora já foram removidos e os pontos deste objeto
+      objetosLista.Clear();
+      pontosLista.Clear();
+      
+      // OnUnload de acordo com o Mundo para liberar os recursos
+      OnUnload();
+    }
 
     public void Desenhar(Transformacao4D matrizGrafo)
     {
