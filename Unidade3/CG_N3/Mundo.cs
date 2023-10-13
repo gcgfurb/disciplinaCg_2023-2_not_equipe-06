@@ -128,57 +128,66 @@ namespace gcgcg
 
             #region Teclado
 
-            var input = KeyboardState;
-
-            if (input.IsKeyDown(Keys.Escape))
+            if (KeyboardState.IsKeyDown(Keys.Escape))
                 Close();
-            else if (input.IsKeyPressed(Keys.Space))
+            else if (KeyboardState.IsKeyPressed(Keys.Space))
             {
                 objetoSelecionado ??= mundo;
                 // objetoSelecionado.shaderObjeto = _shaderBranca;
                 objetoSelecionado = mundo.GrafocenaBuscaProximo(objetoSelecionado);
                 // objetoSelecionado.shaderObjeto = _shaderAmarela;
             }
-            else if (input.IsKeyPressed(Keys.G))
+            else if (KeyboardState.IsKeyPressed(Keys.G))
                 mundo.GrafocenaImprimir("");
-            else if (input.IsKeyPressed(Keys.P) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.P) && objetoSelecionado != null)
                 Console.WriteLine(objetoSelecionado.ToString());
-            else if (input.IsKeyPressed(Keys.M) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.M) && objetoSelecionado != null)
                 objetoSelecionado.MatrizImprimir();
             //TODO: não está atualizando a BBox com as transformações geométricas
-            else if (input.IsKeyPressed(Keys.I) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.I) && objetoSelecionado != null)
                 objetoSelecionado.MatrizAtribuirIdentidade();
-            else if (input.IsKeyPressed(Keys.D) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.D) && objetoSelecionado != null)
             {
                 objetoSelecionado.ObjetoRemover();
                 // Remover a seleção do objeto (para não ter uma bbox fantasma)
                 objetoSelecionado = mundo.GrafocenaBuscaProximo(mundo);
             }
-            else if (input.IsKeyPressed(Keys.Left) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.V) && objetoSelecionado != null)
+            {
+                // Posição do mouse
+                var mousePto = new Ponto4D(MousePosition.X, MousePosition.Y);
+                // Ponto independente do tamanho da tela
+                var sruPto = Utilitario.NDC_TelaSRU(Size.X, Size.Y, mousePto);
+                
+                var posicao = objetoSelecionado.IndexPontoMaisProximo(sruPto);
+                if (posicao > -1)
+                    objetoSelecionado.PontosAlterar(sruPto, posicao);
+            }
+            else if (KeyboardState.IsKeyPressed(Keys.Left) && objetoSelecionado != null)
                 objetoSelecionado.MatrizTranslacaoXYZ(-0.05, 0, 0);
-            else if (input.IsKeyPressed(Keys.Right) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.Right) && objetoSelecionado != null)
                 objetoSelecionado.MatrizTranslacaoXYZ(0.05, 0, 0);
-            else if (input.IsKeyPressed(Keys.Up) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.Up) && objetoSelecionado != null)
                 objetoSelecionado.MatrizTranslacaoXYZ(0, 0.05, 0);
-            else if (input.IsKeyPressed(Keys.Down) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.Down) && objetoSelecionado != null)
                 objetoSelecionado.MatrizTranslacaoXYZ(0, -0.05, 0);
-            else if (input.IsKeyPressed(Keys.PageUp) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.PageUp) && objetoSelecionado != null)
                 objetoSelecionado.MatrizEscalaXYZ(2, 2, 2);
-            else if (input.IsKeyPressed(Keys.PageDown) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.PageDown) && objetoSelecionado != null)
                 objetoSelecionado.MatrizEscalaXYZ(0.5, 0.5, 0.5);
-            else if (input.IsKeyPressed(Keys.Home) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.Home) && objetoSelecionado != null)
                 objetoSelecionado.MatrizEscalaXYZBBox(0.5, 0.5, 0.5);
-            else if (input.IsKeyPressed(Keys.End) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.End) && objetoSelecionado != null)
                 objetoSelecionado.MatrizEscalaXYZBBox(2, 2, 2);
-            else if (input.IsKeyPressed(Keys.D1) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.D1) && objetoSelecionado != null)
                 objetoSelecionado.MatrizRotacao(10);
-            else if (input.IsKeyPressed(Keys.D2) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.D2) && objetoSelecionado != null)
                 objetoSelecionado.MatrizRotacao(-10);
-            else if (input.IsKeyPressed(Keys.D3) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.D3) && objetoSelecionado != null)
                 objetoSelecionado.MatrizRotacaoZBBox(10);
-            else if (input.IsKeyPressed(Keys.D4) && objetoSelecionado != null)
+            else if (KeyboardState.IsKeyPressed(Keys.D4) && objetoSelecionado != null)
                 objetoSelecionado.MatrizRotacaoZBBox(-10);
-            else if (input.IsKeyPressed(Keys.Enter)) // Finalizar objeto
+            else if (KeyboardState.IsKeyPressed(Keys.Enter)) // Finalizar objeto
             {
                 objetoSelecionado = objetoEmProgresso;
                 objetoEmProgresso = null;
@@ -199,9 +208,9 @@ namespace gcgcg
             else if (MouseState.IsButtonPressed(MouseButton.Right)) // Dispara apenas uma vez
             {
                 // Posição do mouse
-                Ponto4D mousePto = new Ponto4D(MousePosition.X, MousePosition.Y);
+                var mousePto = new Ponto4D(MousePosition.X, MousePosition.Y);
                 // Ponto independente do tamanho da tela
-                Ponto4D sruPto = Utilitario.NDC_TelaSRU(Size.X, Size.Y, mousePto);
+                var sruPto = Utilitario.NDC_TelaSRU(Size.X, Size.Y, mousePto);
 
                 if (objetoEmProgresso == null) // Um objeto está sendo criado/editado
                 {
@@ -233,9 +242,9 @@ namespace gcgcg
             if (MouseState.IsButtonDown(MouseButton.Button2) && objetoEmProgresso != null)
             {
                 // Posição do mouse
-                Ponto4D mousePto = new Ponto4D(MousePosition.X, MousePosition.Y);
+                var mousePto = new Ponto4D(MousePosition.X, MousePosition.Y);
                 // Ponto independente do tamanho da tela
-                Ponto4D sruPto = Utilitario.NDC_TelaSRU(Size.X, Size.Y, mousePto);
+                var sruPto = Utilitario.NDC_TelaSRU(Size.X, Size.Y, mousePto);
 
                 // Atualizar o último ponto adicionado enquanto o botão está pressionado
                 objetoEmProgresso.PontosAlterar(sruPto, 0);

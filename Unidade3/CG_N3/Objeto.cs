@@ -6,6 +6,7 @@ using CG_Biblioteca;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using OpenTK.Mathematics;
 
 namespace gcgcg
@@ -95,6 +96,7 @@ namespace gcgcg
       GL.EnableVertexAttribArray(0);
     }
     
+    // Adicionado pela gente
     public void ObjetoRemover()
     {
       // Em cada filho remover todos os objetos
@@ -112,6 +114,25 @@ namespace gcgcg
       
       // OnUnload de acordo com o Mundo para liberar os recursos
       OnUnload();
+    }
+    
+    // Adicionado pela gente
+    public int IndexPontoMaisProximo(Ponto4D ptoOriginal)
+    {
+      var index = -1;
+      var menorDistancia = Double.MaxValue;
+      
+      for (var i = 0; i< pontosLista.Count; i++)
+      {
+        var distancia = Matematica.distanciaQuadrado(ptoOriginal, pontosLista[i]);
+        if (distancia < menorDistancia)
+        {
+          menorDistancia = distancia;
+          index = i;
+        }
+      }
+
+      return index;
     }
 
     public void Desenhar(Transformacao4D matrizGrafo)
