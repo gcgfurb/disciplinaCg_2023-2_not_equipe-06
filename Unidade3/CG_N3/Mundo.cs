@@ -163,6 +163,16 @@ namespace gcgcg
                 if (posicao > -1)
                     objetoSelecionado.PontosAlterar(sruPto, posicao);
             }
+            else if (KeyboardState.IsKeyPressed(Keys.E) && objetoSelecionado != null)
+            {
+                // Posição do mouse
+                var mousePto = new Ponto4D(MousePosition.X, MousePosition.Y);
+                // Ponto independente do tamanho da tela
+                var sruPto = Utilitario.NDC_TelaSRU(Size.X, Size.Y, mousePto);
+                
+                var posicao = objetoSelecionado.IndexPontoMaisProximo(sruPto);
+                objetoSelecionado.PontosRemover(posicao);
+            }
             else if (KeyboardState.IsKeyPressed(Keys.Left) && objetoSelecionado != null)
                 objetoSelecionado.MatrizTranslacaoXYZ(-0.05, 0, 0);
             else if (KeyboardState.IsKeyPressed(Keys.Right) && objetoSelecionado != null)

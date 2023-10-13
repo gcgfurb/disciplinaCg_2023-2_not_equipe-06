@@ -184,6 +184,17 @@ namespace gcgcg
       ObjetoAtualizar();
     }
 
+    // Adicionado pela gente
+    public void PontosRemover(int posicao)
+    {
+      pontosLista.RemoveAt(posicao);
+      
+      if (pontosLista.Count < 2)
+        ObjetoRemover();
+      else
+        ObjetoAtualizar();
+    }
+
     #endregion
 
     #region Objeto: Grafo de Cena
