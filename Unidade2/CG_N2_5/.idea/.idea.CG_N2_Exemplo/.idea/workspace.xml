@@ -8,8 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eda14d58-00d5-4578-aaed-908fa3db2cf1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Circulo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CG_N2_Exemplo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CG_N2_Exemplo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mundo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Mundo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Objeto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Objeto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/CG_N2_Exemplo.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/CG_N2_Exemplo.csproj.AssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +82,7 @@
       <updated>1694972474071</updated>
       <workItem from="1694972475187" duration="353000" />
       <workItem from="1694984152850" duration="642000" />
+      <workItem from="1697923838504" duration="6586000" />
     </task>
     <servers />
   </component>
@@ -88,5 +91,37 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Mundo.cs</url>
+          <line>241</line>
+          <properties documentPath="$PROJECT_DIR$/Mundo.cs" initialLine="215" containingFunctionPresentation="Method 'Baixo'">
+            <startOffsets>
+              <option value="8048" />
+            </startOffsets>
+            <endOffsets>
+              <option value="8092" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/../../CG_Biblioteca/Matematica.cs</url>
+          <line>31</line>
+          <properties documentPath="$PROJECT_DIR$/../../CG_Biblioteca/Matematica.cs" initialLine="31" containingFunctionPresentation="Method 'Dentro'">
+            <startOffsets>
+              <option value="860" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1061" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

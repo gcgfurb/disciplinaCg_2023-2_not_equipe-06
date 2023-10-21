@@ -70,6 +70,9 @@ namespace gcgcg
       //FIXME: deve existir?
       //bBox.Atualizar(pontosLista);
 
+      // Atualizado pela gente, a bbox não atualizava
+      bBox.Atualizar(new Transformacao4D(), pontosLista);
+
       _vertexBufferObject = GL.GenBuffer();
       GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
       GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
