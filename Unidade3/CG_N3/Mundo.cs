@@ -137,7 +137,7 @@ namespace gcgcg
                 objetoSelecionado = mundo.GrafocenaBuscaProximo(objetoSelecionado);
                 // objetoSelecionado.shaderObjeto = _shaderAmarela;
             }
-            else if (KeyboardState.IsKeyPressed(Keys.G))
+            else if (KeyboardState.IsKeyPressed(Keys.A))
                 mundo.GrafocenaImprimir("");
             else if (KeyboardState.IsKeyPressed(Keys.P) && objetoSelecionado != null)
                 Console.WriteLine(objetoSelecionado.ToString());
@@ -173,6 +173,12 @@ namespace gcgcg
                 var posicao = objetoSelecionado.IndexPontoMaisProximo(sruPto);
                 objetoSelecionado.PontosRemover(posicao);
             }
+            else if (KeyboardState.IsKeyPressed(Keys.R) && objetoSelecionado != null)
+                objetoSelecionado.shaderObjeto = _shaderVermelha;
+            else if (KeyboardState.IsKeyPressed(Keys.G) && objetoSelecionado != null)
+                objetoSelecionado.shaderObjeto = _shaderVerde;
+            else if (KeyboardState.IsKeyPressed(Keys.B) && objetoSelecionado != null)
+                objetoSelecionado.shaderObjeto = _shaderAzul;
             else if (KeyboardState.IsKeyPressed(Keys.Left) && objetoSelecionado != null)
                 objetoSelecionado.MatrizTranslacaoXYZ(-0.05, 0, 0);
             else if (KeyboardState.IsKeyPressed(Keys.Right) && objetoSelecionado != null)
@@ -209,6 +215,18 @@ namespace gcgcg
 
             if (MouseState.IsButtonPressed(MouseButton.Left))
             {
+                var mousePto = new Ponto4D(MousePosition.X, MousePosition.Y);
+                var pto = Utilitario.NDC_TelaSRU(Size.X, Size.Y, mousePto);
+                var borda = objetoEmProgresso.Bbox().Dentro(pto);
+
+                if (borda == true)
+                {
+                    objetoEmProgresso.Desenhar(new Transformacao4D());
+                    objetoSelecionado = objetoEmProgresso;
+                }
+                else
+                    objetoSelecionado = null;
+
                 Console.WriteLine("MouseState.IsButtonPressed(MouseButton.Left)");
                 Console.WriteLine("__ Valores do Espaço de Tela");
                 Console.WriteLine("Vector2 mousePosition: " + MousePosition);
