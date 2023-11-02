@@ -83,6 +83,7 @@ namespace gcgcg
         vertices[i + 2] = (float)pontosLista[ptoLista].Z;
         ptoLista++;
       }
+      
       bBox.Atualizar(matriz, pontosLista);
 
       GL.PointSize(primitivaTamanho);
@@ -114,6 +115,11 @@ namespace gcgcg
       
       // OnUnload de acordo com o Mundo para liberar os recursos
       OnUnload();
+    }
+
+    public List<Objeto> ObjetosLista()
+    {
+      return objetosLista;
     }
     
     // Adicionado pela gente

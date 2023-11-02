@@ -180,13 +180,24 @@ namespace gcgcg
             else if (KeyboardState.IsKeyPressed(Keys.B) && objetoSelecionado != null)
                 objetoSelecionado.shaderObjeto = _shaderAzul;
             else if (KeyboardState.IsKeyPressed(Keys.Left) && objetoSelecionado != null)
+            {
                 objetoSelecionado.MatrizTranslacaoXYZ(-0.05, 0, 0);
+
+            }
             else if (KeyboardState.IsKeyPressed(Keys.Right) && objetoSelecionado != null)
+            {
                 objetoSelecionado.MatrizTranslacaoXYZ(0.05, 0, 0);
+            }
             else if (KeyboardState.IsKeyPressed(Keys.Up) && objetoSelecionado != null)
+            {
                 objetoSelecionado.MatrizTranslacaoXYZ(0, 0.05, 0);
+
+            }
             else if (KeyboardState.IsKeyPressed(Keys.Down) && objetoSelecionado != null)
+            {
                 objetoSelecionado.MatrizTranslacaoXYZ(0, -0.05, 0);
+
+            }
             else if (KeyboardState.IsKeyPressed(Keys.PageUp) && objetoSelecionado != null)
                 objetoSelecionado.MatrizEscalaXYZ(2, 2, 2);
             else if (KeyboardState.IsKeyPressed(Keys.PageDown) && objetoSelecionado != null)
@@ -205,6 +216,7 @@ namespace gcgcg
                 objetoSelecionado.MatrizRotacaoZBBox(-10);
             else if (KeyboardState.IsKeyPressed(Keys.Enter)) // Finalizar objeto
             {
+                mundo.FilhoAdicionar(objetoEmProgresso);
                 objetoSelecionado = objetoEmProgresso;
                 objetoEmProgresso = null;
             }
@@ -217,20 +229,19 @@ namespace gcgcg
             {
                 var mousePto = new Ponto4D(MousePosition.X, MousePosition.Y);
                 var pto = Utilitario.NDC_TelaSRU(Size.X, Size.Y, mousePto);
-                var borda = objetoEmProgresso.Bbox().Dentro(pto);
-
-                if (borda == true)
+                //TODO: Corrigir para pegar as bordas da tela
+                foreach(Objeto obj in mundo.ObjetosLista())
                 {
-                    objetoEmProgresso.Desenhar(new Transformacao4D());
-                    objetoSelecionado = objetoEmProgresso;
-                }
-                else
-                    objetoSelecionado = null;
+                    var borda = obj.Bbox().Dentro(pto);
 
-                Console.WriteLine("MouseState.IsButtonPressed(MouseButton.Left)");
-                Console.WriteLine("__ Valores do Espaço de Tela");
-                Console.WriteLine("Vector2 mousePosition: " + MousePosition);
-                Console.WriteLine("Vector2i windowSize: " + Size);
+                    if (borda == true)
+                    {
+                        obj.Desenhar(new Transformacao4D());
+                        objetoSelecionado = obj;
+                    }
+                    else
+                        objetoSelecionado = null;
+                }               
             }
 
             else if (MouseState.IsButtonPressed(MouseButton.Right)) // Dispara apenas uma vez
@@ -267,15 +278,17 @@ namespace gcgcg
             }
 
             // Dispara enquanto o botão estiver pressionado e o objeto estiver selecionado a cada frame
-            if (MouseState.IsButtonDown(MouseButton.Button2) && objetoEmProgresso != null)
+            if (MouseState.IsButtonDown(MouseButton.Button2) && objetoSelecionado != null)
             {
+                Console.WriteLine("MouseState.IsButtonDown(MouseButton.Button2)");
+
                 // Posição do mouse
                 var mousePto = new Ponto4D(MousePosition.X, MousePosition.Y);
                 // Ponto independente do tamanho da tela
                 var sruPto = Utilitario.NDC_TelaSRU(Size.X, Size.Y, mousePto);
 
                 // Atualizar o último ponto adicionado enquanto o botão está pressionado
-                objetoEmProgresso.PontosAlterar(sruPto, 0);
+                objetoSelecionado.PontosAlterar(sruPto, 0);
             }
 
             #endregion
@@ -340,7 +353,7 @@ namespace gcgcg
 #endif
 
 #if CG_Gizmo
-        private void Gizmo_BBox() //FIXME: não é atualizada com as transformações globais
+        private void Gizmo_BBox() 
         {
             if (objetoSelecionado != null)
             {
