@@ -46,4 +46,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="CG_N4_Exemplo.sln" />
+  </ItemGroup>
 </Project>
