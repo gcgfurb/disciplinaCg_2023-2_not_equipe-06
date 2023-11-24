@@ -70,14 +70,22 @@ namespace CG_Biblioteca
             return Matrix4.CreatePerspectiveFieldOfView(_fov, AspectRatio, 0.01f, 100f);
         }
 
-        private void UpdateVectors()
+        public void UpdateVectors()
         {
-            _front.X = MathF.Cos(_pitch) * MathF.Cos(_yaw);
-            _front.Y = MathF.Sin(_pitch);
-            _front.Z = MathF.Cos(_pitch) * MathF.Sin(_yaw);
+            // _front.X = MathF.Cos(_pitch) * MathF.Cos(_yaw);
+            // _front.Y = MathF.Sin(_pitch);
+            // _front.Z = MathF.Cos(_pitch) * MathF.Sin(_yaw);
+            //
+            // _front = Vector3.Normalize(_front);
+            //
+            // _right = Vector3.Normalize(Vector3.Cross(_front, Vector3.UnitY));
+            // _up = Vector3.Normalize(Vector3.Cross(_right, _front));
+            
+            
+            // Manter a câmera olhando sempre para a origem (0, 0, 0)
+            _front = Vector3.Normalize(-Position);
 
-            _front = Vector3.Normalize(_front);
-
+            // Recalcular os vetores right e up baseados no novo vetor front
             _right = Vector3.Normalize(Vector3.Cross(_front, Vector3.UnitY));
             _up = Vector3.Normalize(Vector3.Cross(_right, _front));
         }
