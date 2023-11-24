@@ -9,6 +9,9 @@
 
   <ItemGroup>
     <None Include="Shaders\**" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Shaders\shader_texture.vert">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -45,9 +48,16 @@
     <None Update="Shaders\shader.vert">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Shaders\shader_texture.vert">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="CG_N4_Exemplo.sln" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
