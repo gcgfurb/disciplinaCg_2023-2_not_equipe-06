@@ -19,7 +19,6 @@ namespace gcgcg
     {
         Objeto mundo;
         private char rotuloNovo = '?';
-        private Objeto objetoSelecionado;
 
         private readonly float[] _sruEixos =
         {
@@ -44,6 +43,13 @@ namespace gcgcg
         private bool _firstMove = true;
         private Vector2 _lastPos;
         private Vector3 _origin = new(0, 0, 0); // Origem do espaço 3D
+
+        private Cubo _centralCube;
+        
+        // Orbiting cube
+        private Cubo _orbitingCube;
+        private float orbitSpeed = 0.15f; // Speed of the orbit
+        private float angle = 0.0f; // Initial angle
 
         public Mundo(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
             : base(gameWindowSettings, nativeWindowSettings)
@@ -85,11 +91,15 @@ namespace gcgcg
 
             #endregion
 
-            #region Objeto: Cubo
-
-            objetoSelecionado = new Cubo(mundo, ref rotuloNovo);
-            (objetoSelecionado as Cubo).shaderCor = _shaderAmarela;
-
+            #region Objeto: Cubo maior
+            _centralCube = new Cubo(mundo, ref rotuloNovo);
+            #endregion
+            
+            #region Objeto: Cubo menor
+            _orbitingCube = new Cubo(mundo, ref rotuloNovo);
+            _orbitingCube.MatrizEscalaXYZ(0.3, 0.3, 0.3);
+            _orbitingCube.MatrizTranslacaoXYZ(2.7, 0.8, 0);
+            _orbitingCube.shaderCor = _shaderAmarela;
             #endregion
 
             _camera = new Camera(Vector3.UnitZ * 5, Size.X / (float)Size.Y);
@@ -115,6 +125,8 @@ namespace gcgcg
             {
                 return;
             }
+            
+            _orbitingCube.MatrizRotacao(orbitSpeed);
 
             #region Teclado
 
