@@ -106,7 +106,7 @@ namespace gcgcg
             GL.VertexAttribPointer(texCoordLocation, 2, VertexAttribPointerType.Float, false, 3 * sizeof(float), 3 * sizeof(float));
 
 
-            _texture = Texture.LoadFromFile("Resources/sarah.png");
+            _texture = Texture.LoadFromFile("Resources/sarah.jpg");
             _texture.Use(TextureUnit.Texture0);
 
             _texture1 = Texture.LoadFromFile("Resources/leo.jpg");
