@@ -37,6 +37,10 @@ namespace gcgcg
         private Shader _shaderCiano;
         private Shader _shaderMagenta;
         private Shader _shaderAmarela;
+        
+        private Shader _shader;
+        private Texture _texture;
+        private Texture _texture1;
 
         // Camera
         private Camera _camera;
@@ -89,12 +93,35 @@ namespace gcgcg
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
 
+
+            _shader = new Shader("Shaders/shader_texture.vert", "Shaders/shader_texture.frag");
+            _shader.Use();
+
+            var vertexLocation = _shader.GetAttribLocation("aPosition");
+            GL.EnableVertexAttribArray(vertexLocation);
+            GL.VertexAttribPointer(vertexLocation, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+
+            var texCoordLocation = _shader.GetAttribLocation("aTexCoord");
+            GL.EnableVertexAttribArray(texCoordLocation);
+            GL.VertexAttribPointer(texCoordLocation, 2, VertexAttribPointerType.Float, false, 3 * sizeof(float), 3 * sizeof(float));
+
+
+            _texture = Texture.LoadFromFile("Resources/sarah.png");
+            _texture.Use(TextureUnit.Texture0);
+
+            _texture1 = Texture.LoadFromFile("Resources/leo.jpg");
+            _texture1.Use(TextureUnit.Texture1);
+
+            _shader.SetInt("texture0", 0);
+            _shader.SetInt("texture1", 1);
+            GL.GetError();
+
             #endregion
 
             #region Objeto: Cubo maior
             _centralCube = new Cubo(mundo, ref rotuloNovo);
             #endregion
-            
+
             #region Objeto: Cubo menor
             _orbitingCube = new Cubo(mundo, ref rotuloNovo);
             _orbitingCube.MatrizEscalaXYZ(0.3, 0.3, 0.3);
@@ -112,7 +139,13 @@ namespace gcgcg
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
+            _texture.Use(TextureUnit.Texture0);
+            _texture1.Use(TextureUnit.Texture1);
+            _shader.Use();
+
             mundo.Desenhar(new Transformacao4D(), _camera);
+
+            GL.GetError();
 
             SwapBuffers();
         }
